@@ -73,6 +73,37 @@ updateScore();
 showResult(result);
 showMoves(myMove, computerMove);
 
-alert(`You choose ${myMove}. Computer choose ${computerMove}. ${result}\n
-Wins: ${score.wins} Losses: ${score.losses} Ties: ${score.ties}`);
+// alert(`You choose ${myMove}. Computer choose ${computerMove}. ${result}\n
+// Wins: ${score.wins} Losses: ${score.losses} Ties: ${score.ties}`);
 }
+
+const interval = setInterval(
+  function() {
+    myMove = pickComputerMove();
+    getResult(myMove);
+  },
+
+5000);
+clearInterval(interval);
+
+document.querySelector('.js-rock-button').addEventListener('click', () => {
+  getResult('rock');
+});
+
+document.querySelector('.js-paper-button').addEventListener('click', () => {
+  getResult('paper');
+});
+
+document.querySelector('.js-scissors-button').addEventListener('click', () => {
+  getResult('scissors');
+});
+
+document.body.addEventListener('keydown', (event) => {
+  if (event.key === 'r') {
+    getResult('rock');
+  } else if (event.key === 'p') {
+    getResult('paper');
+  } else if (event.key === 's') {
+    getResult('scissors');
+  }
+});
