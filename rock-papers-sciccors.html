@@ -6,22 +6,79 @@
     <title>Document</title>
   </head>
   <body>
-    <p> 
-      <button onclick="const randomNumber = Math.random();
-        const myChoice = 'Rock';
-        alert('You choose Rock');
-        if (randomNumber > 0 && randomNumber < 1/3) {
-          alert('Computer choose Rock too. Draw.');
-        } else if (randomNumber >= 1/3 && randomNumber < 2/3) {
-          alert('Computer choose Paper. You lose.');
-        } else {
-          alert('Computer choose scissors. You win!');
-        }
-        ">Rock</button> 
-      <button onclick="const randomNumber2 = Math.random()">Papers</button> 
-      <button onclick="const randomNumber3 = Math.random()">Scissors</button></p>
+    <p> Rock Paper Scissors </p>
+      <button onclick="
+        getResult('rock');
+      ">Rock</button> 
+      <button onclick="
+        getResult('paper');
+      ">Paper</button> 
+      <button onclick="
+        getResult('scissors');
+      ">Scissors</button>
+      <button onclick="
+        score.wins = 0;
+        score.losses = 0;
+        score.ties = 0;
+      ">Reset score</button>
+
     <script>
- 
+
+      const score = {
+        wins: 0,
+        losses: 0,
+        ties: 0
+      };
+
+      function pickComputerMove() {
+        const randomNumber = Math.random();
+        if (randomNumber > 0 && randomNumber < 1/3) {
+          return 'rock';
+        } else if (randomNumber >= 1/3 && randomNumber < 2/3) {
+          return 'paper';
+        } else if (randomNumber >= 2/3 && randomNumber < 1) {
+          return 'scissors';
+        }
+      }
+
+      function getResult(myMove) {
+        const computerMove = pickComputerMove();
+        let result = '';
+        if (myMove === 'rock') {
+          if (computerMove === 'rock') {
+            result = 'Tie.';
+          } else if (computerMove === 'paper') {
+            result = 'Lose.';
+          } else if (computerMove === 'scissors') {
+            result = 'Win.';
+          }
+        } else if (myMove === 'paper') {
+          if (computerMove === 'rock') {
+            result = 'Win.';
+          } else if (computerMove === 'paper') {
+            result = 'Tie.';
+          } else if (computerMove === 'scissors') {
+            result = 'Lose.';
+          }
+        } else if (myMove === 'scissors') {
+          if (computerMove === 'rock') {
+            result = 'Lose.';
+          } else if (computerMove === 'paper') {
+            result = 'Win.';
+          } else if (computerMove === 'scissors') {
+            result = 'Tie.';
+          }
+        }
+        if (result === 'Win.') {
+          score.wins++;
+        } else if (result === 'Lose.') {
+          score.losses++;
+        } else if (result === 'Tie.') {
+          score.ties++;
+        }
+        alert(`You choose ${myMove}. Computer choose ${computerMove}. ${result}\n
+        Wins: ${score.wins} Losses: ${score.losses} Ties: ${score.ties}`);
+      }
     </script>
   </body>
 </html>
